@@ -1,0 +1,57 @@
+<div class="container">
+  <h1 class="titulo">📊 Reportes de Administración</h1>
+
+  <button (click)="generarReporte()" class="btn-generar">Generar Reporte</button>
+
+  <div *ngIf="mostrarReporte" class="reporte-contenedor">
+
+    <div class="resumen">
+      <div class="card animar-total">
+        <h2>Ventas Totales</h2>
+        <p>{{resumen.ventasTotales | currency}}</p>
+      </div>
+      <div class="card animar-total">
+        <h2>Productos Vendidos</h2>
+        <p>{{resumen.productosVendidos}}</p>
+      </div>
+      <div class="card animar-total">
+        <h2>Clientes Atendidos</h2>
+        <p>{{resumen.clientesAtendidos}}</p>
+      </div>
+    </div>
+
+    <div class="tabla-ventas">
+      <h2>Detalle de Ventas</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Factura</th>
+            <th>Fecha</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let venta of ventas">
+            <td>{{venta.factura}}</td>
+            <td>{{venta.fecha}}</td>
+            <td>{{venta.producto}}</td>
+            <td>{{venta.cantidad}}</td>
+            <td>{{venta.total | currency}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grafico">
+      <h2>Gráfico de Ventas</h2>
+      <canvas baseChart
+        [data]="ventasData"
+        [options]="ventasOptions"
+        chartType="bar">
+      </canvas>
+    </div>
+
+  </div>
+</div>

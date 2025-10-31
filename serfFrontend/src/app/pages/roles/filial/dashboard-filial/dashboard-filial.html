@@ -1,0 +1,16 @@
+<div class="container">
+  <h1 class="titulo">📊 Dashboard Filial</h1>
+  <button (click)="generarDashboard()" class="btn-generar">Mostrar Dashboard</button>
+
+  <div *ngIf="mostrarDashboard" class="dashboard">
+    <div class="resumen">
+      <div class="card">{{resumen.ventasTotales | currency}} Ventas Totales</div>
+      <div class="card">{{resumen.productosVendidos}} Productos Vendidos</div>
+      <div class="card">{{resumen.clientesAtendidos}} Clientes Atendidos</div>
+    </div>
+
+    <div class="grafico">
+      <canvas baseChart [data]="ventasData" [options]="ventasOptions" chartType="bar"></canvas>
+    </div>
+  </div>
+</div>

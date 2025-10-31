@@ -1,0 +1,26 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #ecf0f1;
+}
+
+nav {
+    background-color: #0984e3;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    background: #d63031;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+main {
+    padding: 20px;
+}

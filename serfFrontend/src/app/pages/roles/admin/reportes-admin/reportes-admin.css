@@ -1,0 +1,85 @@
+.container {
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.titulo {
+  text-align: center;
+  color: #4f46e5;
+  margin-bottom: 20px;
+}
+
+.btn-generar {
+  display: block;
+  margin: 0 auto 20px;
+  padding: 10px 20px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-generar:hover {
+  background-color: #2563eb;
+  transform: scale(1.05);
+}
+
+.reporte-contenedor {
+  animation: fadeIn 0.8s ease-in;
+}
+
+.resumen {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: #e0e7ff;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  width: 200px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.animar-total p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1e3a8a;
+  animation: contar 1s ease forwards;
+}
+
+.tabla-ventas table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+.tabla-ventas th, .tabla-ventas td {
+  border: 1px solid #cbd5e1;
+  padding: 8px;
+  text-align: center;
+}
+
+.grafico {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+@keyframes contar {
+  0% { opacity: 0; transform: scale(0.5);}
+  100% { opacity: 1; transform: scale(1);}
+}

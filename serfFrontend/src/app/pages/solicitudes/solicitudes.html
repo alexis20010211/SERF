@@ -1,0 +1,57 @@
+<div class="container">
+  <h2>Registrar Nueva Solicitud</h2>
+  <form #form="ngForm" (ngSubmit)="registrarSolicitud(form)" class="formulario">
+    <div class="form-group">
+      <label>Cliente:</label>
+      <select name="cliente" [(ngModel)]="nuevaSolicitud.clienteId" required>
+        <option value="">Seleccione un cliente</option>
+        <option *ngFor="let c of clientes" [value]="c.id">{{ c.nombre }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Técnico:</label>
+      <select name="tecnico" [(ngModel)]="nuevaSolicitud.tecnicoId" required>
+        <option value="">Seleccione un técnico</option>
+        <option *ngFor="let t of tecnicos" [value]="t.id">{{ t.nombre }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Detalle:</label>
+      <textarea name="detalle" [(ngModel)]="nuevaSolicitud.detalle" required></textarea>
+    </div>
+
+    <button type="submit">Registrar Solicitud</button>
+  </form>
+
+  <h2>Listado de Solicitudes</h2>
+  <div class="resumen">
+    <div>Total Solicitudes: {{ solicitudes.length }}</div>
+  </div>
+
+  <table class="tabla">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Técnico</th>
+        <th>Detalle</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of solicitudes">
+        <td>{{ s.cliente }}</td>
+        <td>{{ s.tecnico }}</td>
+        <td>{{ s.detalle }}</td>
+        <td>{{ s.fecha }}</td>
+        <td [ngClass]="{'pendiente': s.estado==='Pendiente', 'proceso': s.estado==='En proceso', 'resuelta': s.estado==='Resuelta'}">
+          {{ s.estado }}
+        </td>
+        <td><button (click)="cambiarEstado(s)">Cambiar Estado</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

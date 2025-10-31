@@ -1,0 +1,143 @@
+/* Contenedor principal */
+.login-container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.5s ease;
+}
+
+/* Lado izquierdo azul */
+.login-left {
+  flex: 1;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+/* Lado derecho formulario */
+.login-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #f4f6f8;
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+/* Formulario */
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #007bff;
+}
+
+/* Inputs */
+.form-group {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0,123,255,0.3);
+}
+
+/* Errores */
+.error {
+  color: #ff4d4f;
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Botón */
+.btn-login {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Footer y enlaces */
+.forgot-password,
+.demo-credentials,
+.login-footer {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+}
+
+.demo-credentials ul {
+  list-style: none;
+  padding: 0;
+}
+
+.demo-credentials li {
+  margin-bottom: 0.3rem;
+}
+
+/* Animación de carga */
+.login-container.loaded .login-left,
+.login-container.loaded .login-right {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Logo */
+.logo {
+  width: 120px;
+  margin-bottom: 1rem;
+}

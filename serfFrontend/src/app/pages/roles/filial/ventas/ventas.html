@@ -1,0 +1,15 @@
+<div class="container">
+  <h1 class="titulo">Ventas Filial</h1>
+
+  <form (ngSubmit)="registrarVenta()" #f="ngForm">
+    <input type="text" [(ngModel)]="venta.factura" name="factura" placeholder="Factura" required>
+    <input type="text" [(ngModel)]="venta.producto" name="producto" placeholder="Producto" required>
+    <input type="number" [(ngModel)]="venta.cantidad" name="cantidad" placeholder="Cantidad" min="1">
+    <input type="number" [(ngModel)]="venta.total" name="total" placeholder="Total" min="0">
+    <button type="submit">Registrar</button>
+  </form>
+
+  <div class="listado">
+    <h2>Lista de Ventas</h2>
+    <ul>
+      <li *ngFor="let v of ventas">{{v.factura}} - {{v.producto}} - {{v

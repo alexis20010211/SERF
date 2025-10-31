@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Solicitudes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        button { margin: 5px; }
+    </style>
+</head>
+<body>
+
+<h1>Gestión de Solicitudes</h1>
+
+<h2>Crear nueva solicitud</h2>
+<form id="form-solicitud">
+    <label>Cliente: <input type="text" id="cliente" required></label><br>
+    <label>Tipo: <input type="text" id="tipo" required></label><br>
+    <label>Monto: <input type="number" id="monto" required></label><br>
+    <button type="submit">Crear Solicitud</button>
+</form>
+
+<h2>Lista de solicitudes</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Tipo</th>
+            <th>Monto</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="tabla-solicitudes"></tbody>
+</table>
+
+<script>
+const url = "http://localhost:8081/api/solicitudes";
+
+// Función para listar todas las solicitudes
+function listarSolicitudes() {
+    fetch(url)
+    .then(res => res.json())
+    .then(data => {
+        const tbody = document.getElementById("tabla-solicitudes");
+        tbody.innerHTML = "";
+        data.forEach(s => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${s.id}</td>
+                <td>${s.cliente}</td>
+                <td>${s.tipo}</td>
+                <td>${s.monto}</td>
+                <td>
+                    <button onclick="eliminarSolicitud(${s.id})">Eliminar</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    });
+}
+
+// Función para crear nueva solicitud
+document.getElementById("form-solicitud").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const nuevaSolicitud = {
+        cliente: document.getElementById("cliente").value,
+        tipo: document.getElementById("tipo").value,
+        monto: parseFloat(document.getElementById("monto").value)
+    };
+
+    fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(nuevaSolicitud)
+    })
+    .then(res => res.json())
+    .then(() => {
+        document.getElementById("form-solicitud").reset();
+        listarSolicitudes();
+    });
+});
+
+// Función para eliminar solicitud por ID
+function eliminarSolicitud(id) {
+    fetch(`${url}/${id}`, { method: "DELETE" })
+    .then(() => listarSolicitudes());
+}
+
+// Listar solicitudes al cargar la página
+window.onload = listarSolicitudes;
+</script>
+
+</body>
+</html>

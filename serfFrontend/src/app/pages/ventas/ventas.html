@@ -1,0 +1,74 @@
+<div class="ventas-container">
+  <form [formGroup]="ventasForm" (ngSubmit)="onSubmit()" class="ventas-form">
+    <h2>Registro de Ventas</h2>
+
+    <div class="form-group">
+      <label for="numeroFactura">Número de Factura</label>
+      <input id="numeroFactura" formControlName="numeroFactura" placeholder="Ingrese número de factura" />
+      <div *ngIf="submitted && f['numeroFactura'].errors" class="error">Número de factura requerido</div>
+    </div>
+
+    <div class="form-group">
+      <label for="fechaVenta">Fecha de Venta</label>
+      <input type="date" id="fechaVenta" formControlName="fechaVenta" />
+      <div *ngIf="submitted && f['fechaVenta'].errors" class="error">Fecha requerida</div>
+    </div>
+
+    <div class="form-group">
+      <label for="producto">Producto</label>
+      <select id="producto" formControlName="producto" (change)="onProductoChange()">
+        <option [value]="''" disabled>--Seleccione--</option>
+        <option *ngFor="let p of productos" [value]="p.id">{{ p.nombre }}</option>
+      </select>
+      <div *ngIf="submitted && f['producto'].errors" class="error">Producto requerido</div>
+    </div>
+
+    <div class="form-group">
+      <label for="cantidad">Cantidad</label>
+      <input type="number" id="cantidad" formControlName="cantidad" placeholder="Ingrese cantidad" />
+      <div *ngIf="submitted && f['cantidad'].errors" class="error">Cantidad válida requerida</div>
+    </div>
+
+    <div class="form-group">
+      <label for="precioUnitario">Precio Unitario</label>
+      <!-- ✅ Deshabilitado correctamente desde el FormControl -->
+      <input type="number" id="precioUnitario" formControlName="precioUnitario" [readonly]="true" />
+    </div>
+
+    <div class="form-group">
+      <label for="cliente">Cliente</label>
+      <input id="cliente" formControlName="cliente" placeholder="Ingrese nombre del cliente" />
+      <div *ngIf="submitted && f['cliente'].errors" class="error">Cliente requerido</div>
+    </div>
+
+    <div class="form-group">
+      <label for="vendedor">Vendedor</label>
+      <input id="vendedor" formControlName="vendedor" placeholder="Ingrese nombre del vendedor" />
+      <div *ngIf="submitted && f['vendedor'].errors" class="error">Vendedor requerido</div>
+    </div>
+
+    <div class="form-group">
+      <label for="metodoPago">Método de Pago</label>
+      <select id="metodoPago" formControlName="metodoPago">
+        <option [value]="''" disabled>--Seleccione--</option>
+        <option *ngFor="let m of metodosPago" [value]="m">{{ m }}</option>
+      </select>
+      <div *ngIf="submitted && f['metodoPago'].errors" class="error">Método de pago requerido</div>
+    </div>
+
+    <button type="submit" class="btn-registrar">Registrar Venta</button>
+  </form>
+
+  <!-- ✅ Mensaje de venta registrada -->
+  <div *ngIf="ventaRegistrada" class="venta-info">
+    <h3>Última venta registrada:</h3>
+    <div class="success">
+      Venta registrada con éxito:
+      <strong>{{ ventaRegistrada.producto }} - {{ ventaRegistrada.cantidad }} unidades</strong>
+      <br />
+      Cliente: {{ ventaRegistrada.cliente }} | Vendedor: {{ ventaRegistrada.vendedor }}
+      <br />
+      Precio Unitario: {{ ventaRegistrada.precioUnitario }} | Método de Pago: {{ ventaRegistrada.metodoPago }}
+    </div>
+  </div>
+</div>

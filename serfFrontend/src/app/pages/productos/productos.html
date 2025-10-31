@@ -1,0 +1,78 @@
+<div class="producto-container">
+  <h2>Registro de Producto</h2>
+
+  <!-- Mensaje de restricción para no administradores -->
+  <div *ngIf="!isAdmin" class="error-permiso">
+    ❌ Solo los administradores pueden registrar productos.
+  </div>
+
+  <!-- Formulario visible solo para administradores -->
+  <form *ngIf="isAdmin" [formGroup]="productoForm" (ngSubmit)="onSubmit()" class="producto-form">
+    <div class="form-group">
+      <label for="codigo">Código</label>
+      <input id="codigo" formControlName="codigo" placeholder="Ingrese el código del producto" />
+      <div *ngIf="submitted && f['codigo'].errors" class="error">Código requerido</div>
+    </div>
+
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" formControlName="nombre" placeholder="Ingrese el nombre del producto" />
+      <div *ngIf="submitted && f['nombre'].errors" class="error">Nombre requerido</div>
+    </div>
+
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" formControlName="descripcion" placeholder="Descripción técnica"></textarea>
+      <div *ngIf="submitted && f['descripcion'].errors" class="error">Descripción requerida</div>
+    </div>
+
+    <div class="form-group">
+      <label for="categoria">Categoría</label>
+      <select id="categoria" formControlName="categoria">
+        <option value="" disabled selected>--Seleccione--</option>
+        <option *ngFor="let c of categorias" [value]="c">{{ c }}</option>
+      </select>
+      <div *ngIf="submitted && f['categoria'].errors" class="error">Categoría requerida</div>
+    </div>
+
+    <div class="form-group">
+      <label for="costoImportacion">Costo de Importación</label>
+      <input type="number" id="costoImportacion" formControlName="costoImportacion" placeholder="Ingrese costo de importación" />
+      <div *ngIf="submitted && f['costoImportacion'].errors" class="error">Costo válido requerido</div>
+    </div>
+
+    <div class="form-group">
+      <label for="precioVenta">Precio de Venta</label>
+      <input type="number" id="precioVenta" formControlName="precioVenta" placeholder="Ingrese precio de venta" />
+      <div *ngIf="submitted && f['precioVenta'].errors" class="error">Precio válido requerido</div>
+    </div>
+
+    <div class="form-group">
+      <label for="proveedor">Proveedor</label>
+      <select id="proveedor" formControlName="proveedor">
+        <option value="" disabled selected>--Seleccione--</option>
+        <option *ngFor="let p of proveedores" [value]="p">{{ p }}</option>
+      </select>
+      <div *ngIf="submitted && f['proveedor'].errors" class="error">Proveedor requerido</div>
+    </div>
+
+    <div class="form-group">
+      <label for="fechaImportacion">Fecha de Importación</label>
+      <input type="date" id="fechaImportacion" formControlName="fechaImportacion" />
+      <div *ngIf="submitted && f['fechaImportacion'].errors" class="error">Fecha requerida</div>
+    </div>
+
+    <div class="form-group">
+      <label for="stockInicial">Stock Inicial</label>
+      <input type="number" id="stockInicial" formControlName="stockInicial" placeholder="Ingrese stock inicial" />
+      <div *ngIf="submitted && f['stockInicial'].errors" class="error">Stock válido requerido</div>
+    </div>
+
+    <button type="submit" class="btn-registrar">Registrar Producto</button>
+
+    <!-- Mensaje de éxito -->
+    <div *ngIf="productoRegistrado" class="success">
+      ✅ Producto registrado con éxito
+    </div>
+  </form>
+</div>

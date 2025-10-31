@@ -1,0 +1,38 @@
+<div class="dashboard-container">
+  <h1>Dashboard Admin</h1>
+
+  <div class="cards">
+    <div class="card clientes">
+      <h3>Clientes</h3>
+      <p>{{ clientes }}</p>
+    </div>
+    <div class="card tecnicos">
+      <h3>Técnicos</h3>
+      <p>{{ tecnicos }}</p>
+    </div>
+    <div class="card ventas">
+      <h3>Ventas Totales</h3>
+      <p>$ {{ ventasTotales }}</p>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <canvas id="ventasChart"></canvas>
+  </div>
+
+  <div class="ventas-list">
+    <h2>Ventas recientes</h2>
+    <table>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Total</th>
+      </tr>
+      <tr *ngFor="let v of ventas" class="fade-in">
+        <td>{{ v.producto }}</td>
+        <td>{{ v.cantidad }}</td>
+        <td>$ {{ v.total }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

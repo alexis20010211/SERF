@@ -1,0 +1,46 @@
+<div class="clientes-container">
+  <!-- Mensaje de acceso denegado -->
+  <div *ngIf="accesoDenegado" class="acceso-denegado">
+    ❌ No tienes permisos para acceder a esta sección.
+  </div>
+
+  <!-- Formulario solo si tiene acceso -->
+  <form *ngIf="!accesoDenegado" [formGroup]="clienteForm" (ngSubmit)="onSubmit()" class="clientes-form">
+    <h2>Registro de Clientes</h2>
+
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" formControlName="nombre" placeholder="Ingrese nombre del cliente" />
+      <div *ngIf="submitted && f['nombre'].errors" class="error">Nombre requerido</div>
+    </div>
+
+    <div class="form-group">
+      <label for="correo">Correo</label>
+      <input id="correo" formControlName="correo" placeholder="Ingrese correo" />
+      <div *ngIf="submitted && f['correo'].errors" class="error">Correo válido requerido</div>
+    </div>
+
+    <div class="form-group">
+      <label for="telefono">Teléfono</label>
+      <input id="telefono" formControlName="telefono" placeholder="Ingrese teléfono" />
+      <div *ngIf="submitted && f['telefono'].errors" class="error">Teléfono requerido (solo números, 7-15 dígitos)</div>
+    </div>
+
+    <button type="submit" class="btn-registrar">Registrar Cliente</button>
+
+    <!-- Mensaje de éxito -->
+    <div *ngIf="clienteRegistrado" class="cliente-registrado">
+      ✅ Cliente registrado correctamente
+    </div>
+  </form>
+
+  <!-- Lista de clientes -->
+  <div *ngIf="clientes.length > 0 && !accesoDenegado" class="clientes-list">
+    <h3>Todos los clientes:</h3>
+    <ul>
+      <li *ngFor="let c of clientes">
+        {{ c.nombre }} - {{ c.correo }} - {{ c.telefono }}
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+.dashboard-container {
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+  min-height: 100vh;
+}
+
+h1 {
+  color: #2d3436;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.cards {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.card {
+  flex: 1;
+  padding: 1.5rem;
+  border-radius: 12px;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.05);
+}
+
+.clientes { background-color: #6c5ce7; }
+.tecnicos { background-color: #00b894; }
+.ventas { background-color: #fdcb6e; }
+
+.chart-container {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.ventas-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.ventas-list th, .ventas-list td {
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.ventas-list tr {
+  background: rgba(255,255,255,0.7);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.ventas-list tr:hover {
+  transform: translateX(5px);
+  background: rgba(255,255,255,1);
+}
+
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}

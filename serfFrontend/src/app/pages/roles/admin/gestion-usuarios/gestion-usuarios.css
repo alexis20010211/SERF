@@ -1,0 +1,96 @@
+.usuarios-container {
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2d3436;
+}
+
+.form-usuario {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 0 auto 2rem;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.form-usuario input,
+.form-usuario select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+}
+
+.form-usuario input:focus,
+.form-usuario select:focus {
+  border-color: #6c5ce7;
+  transform: scale(1.02);
+}
+
+.form-usuario button {
+  padding: 0.75rem 1.5rem;
+  background-color: #6c5ce7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.form-usuario button:hover {
+  background-color: #341f97;
+  transform: scale(1.05);
+}
+
+.warning {
+  color: #d63031;
+  font-weight: bold;
+}
+
+.lista-usuarios {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.lista-usuarios table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.lista-usuarios th, .lista-usuarios td {
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.lista-usuarios tr {
+  background: rgba(255,255,255,0.7);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.lista-usuarios tr:hover {
+  transform: translateX(5px);
+  background: rgba(255,255,255,1);
+}
+
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}

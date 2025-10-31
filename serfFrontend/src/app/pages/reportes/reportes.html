@@ -1,0 +1,24 @@
+<div class="reportes-container">
+  <h2>Dashboard de Reportes</h2>
+
+  <button class="btn-reporte" (click)="generarReporte()">Generar Reporte</button>
+
+  <div *ngIf="mostrarReporte" class="resumen-container">
+    <div class="card resumen-card" [class.animar]="animarTotal">
+      <h3>Ventas Totales</h3>
+      <p>{{ resumen.ventasTotales | currency:'USD':'symbol':'1.0-0' }}</p>
+    </div>
+    <div class="card resumen-card" [class.animar]="animarTotal">
+      <h3>Productos Vendidos</h3>
+      <p>{{ resumen.productosVendidos }}</p>
+    </div>
+    <div class="card resumen-card" [class.animar]="animarTotal">
+      <h3>Clientes Atendidos</h3>
+      <p>{{ resumen.clientesAtendidos }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="mostrarReporte" class="chart-container">
+    <canvas #ventasChart></canvas>
+  </div>
+</div>

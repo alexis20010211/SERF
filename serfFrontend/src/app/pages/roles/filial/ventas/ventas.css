@@ -1,0 +1,8 @@
+.container { padding: 20px; font-family: 'Segoe UI', sans-serif; }
+.titulo { text-align: center; color: #10b981; margin-bottom: 20px; }
+form { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
+input { padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; }
+button { background-color: #3b82f6; color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+button:hover { background-color: #2563eb; transform: scale(1.05); }
+.listado ul { list-style: none; padding: 0; }
+.listado li { padding: 6px; border-bottom: 1px solid #cbd5e1; }

@@ -1,0 +1,21 @@
+<div class="container">
+  <h1 class="titulo">Clientes Filial</h1>
+
+  <form (ngSubmit)="registrarCliente()" #f="ngForm">
+    <input type="text" [(ngModel)]="cliente.nombre" name="nombre" placeholder="Nombre" required>
+    <input type="email" [(ngModel)]="cliente.email" name="email" placeholder="Email" required>
+    <input type="text" [(ngModel)]="cliente.telefono" name="telefono" placeholder="Teléfono">
+    <button type="submit">Registrar</button>
+  </form>
+
+  <div *ngIf="clienteRegistrado" class="alerta">
+    Cliente registrado correctamente ✅
+  </div>
+
+  <div class="listado">
+    <h2>Lista de Clientes</h2>
+    <ul>
+      <li *ngFor="let c of clientes">{{c.nombre}} - {{c.email}} - {{c.telefono}}</li>
+    </ul>
+  </div>
+</div>

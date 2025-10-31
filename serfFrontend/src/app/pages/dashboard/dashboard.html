@@ -1,0 +1,47 @@
+<div class="dashboard-container">
+  <h2>📊 Dashboard</h2>
+
+  <!-- Botón actualizar -->
+  <button class="btn-actualizar" (click)="actualizarDatos()">Actualizar Datos</button>
+
+  <!-- Tarjetas de resumen -->
+  <div class="resumen-cards">
+    <div class="card">
+      <h3>Ventas Totales</h3>
+      <p class="contador">{{resumen.ventasTotales | number}}</p>
+    </div>
+    <div class="card">
+      <h3>Clientes</h3>
+      <p class="contador">{{resumen.clientes}}</p>
+    </div>
+    <div class="card">
+      <h3>Técnicos</h3>
+      <p class="contador">{{resumen.tecnicos}}</p>
+    </div>
+    <div class="card">
+      <h3>Productos Vendidos</h3>
+      <p class="contador">{{resumen.productosVendidos}}</p>
+    </div>
+  </div>
+
+  <!-- Gráficas -->
+  <div class="charts-container">
+    <div class="chart">
+      <h4>Ventas por Día</h4>
+      <canvas baseChart 
+        [data]="ventasPorDia" 
+        [type]="'line'" 
+        [options]="ventasChartOptions">
+      </canvas>
+    </div>
+
+    <div class="chart">
+      <h4>Productos Más Vendidos</h4>
+      <canvas baseChart 
+        [data]="productosMasVendidos" 
+        [type]="'doughnut'" 
+        [options]="productosChartOptions">
+      </canvas>
+    </div>
+  </div>
+</div>

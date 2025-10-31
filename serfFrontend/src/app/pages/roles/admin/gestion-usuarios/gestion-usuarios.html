@@ -1,0 +1,33 @@
+<div class="usuarios-container">
+  <h1>Gestión de Usuarios</h1>
+
+  <div class="form-usuario">
+    <h2>Agregar Usuario</h2>
+    <form (ngSubmit)="agregarUsuario()">
+      <input type="text" placeholder="Nombre" [(ngModel)]="nuevoUsuario.nombre" name="nombre" required>
+      <input type="email" placeholder="Email" [(ngModel)]="nuevoUsuario.email" name="email" required>
+      <select [(ngModel)]="nuevoUsuario.rol" name="rol">
+        <option value="Admin">Admin</option>
+        <option value="Filial">Filial</option>
+      </select>
+      <button type="submit">Agregar</button>
+    </form>
+    <p *ngIf="submitted" class="warning">Todos los campos son obligatorios</p>
+  </div>
+
+  <div class="lista-usuarios">
+    <h2>Usuarios Registrados</h2>
+    <table>
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Rol</th>
+      </tr>
+      <tr *ngFor="let u of usuarios" class="fade-in">
+        <td>{{ u.nombre }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.rol }}</td>
+      </tr>
+    </table>
+  </div>
+</div>
