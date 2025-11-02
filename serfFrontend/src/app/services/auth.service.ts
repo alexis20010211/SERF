@@ -6,16 +6,23 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   private userRole: 'Administrador' | 'Filial' | null = null;
 
-  constructor() {}
-
-  // Llamar después del login
-  setRole(role: 'Administrador' | 'Filial') {
-    this.userRole = role;
-    localStorage.setItem('userRole', role); // opcional para persistir sesión
+  constructor() {
+    // ✅ Si hay datos en localStorage, los cargamos al iniciar
+    const storedRole = localStorage.getItem('userRole');
+    if (storedRole === 'Administrador' || storedRole === 'Filial') {
+      this.userRole = storedRole;
+    }
   }
 
+  // ✅ Guarda el rol y marca como logueado
+  login(role: 'Administrador' | 'Filial') {
+    this.userRole = role;
+    localStorage.setItem('userRole', role);
+    localStorage.setItem('loggedIn', 'true');
+  }
+
+  // ✅ Devuelve el rol actual
   getRole(): 'Administrador' | 'Filial' | null {
-    // Lee de localStorage si quieres persistencia
     if (!this.userRole) {
       const storedRole = localStorage.getItem('userRole');
       if (storedRole === 'Administrador' || storedRole === 'Filial') {
@@ -25,16 +32,17 @@ export class AuthService {
     return this.userRole;
   }
 
-  isAdmin(): boolean {
-    return this.getRole() === 'Administrador';
+  // ✅ Verifica si está logueado
+  isLoggedIn(): boolean {
+    const logged = localStorage.getItem('loggedIn');
+    const role = localStorage.getItem('userRole');
+    return logged === 'true' && (role === 'Administrador' || role === 'Filial');
   }
 
-  isFilial(): boolean {
-    return this.getRole() === 'Filial';
-  }
-
+  // ✅ Cierra sesión completamente
   logout() {
     this.userRole = null;
     localStorage.removeItem('userRole');
+    localStorage.removeItem('loggedIn');
   }
 }

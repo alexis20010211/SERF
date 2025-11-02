@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule, NgFor } from '@angular/common';
-import { RouterModule } from '@angular/router'; // ✅ Necesario para routerLink y router-outlet
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../../services/auth.service'; // ✅ asegúrate de tener este servicio
 
 @Component({
   selector: 'app-admin-panel',
@@ -29,15 +30,24 @@ export class AdminPanel {
     { nombre: 'Configuración', ruta: 'configuracion' },
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private auth: AuthService // ✅ Inyectamos AuthService
+  ) {}
 
   // ✅ Navegación programática (opcional)
   navegarModulo(ruta: string) {
     this.router.navigate(['/admin', ruta]);
   }
 
-  // ✅ Limpieza visual para status si lo necesitas
+  // ✅ Limpieza visual (si se usa)
   formatearStatus(status: string): string {
     return status.toLowerCase().replace(/ /g, '-');
+  }
+
+  // ✅ Cerrar sesión
+  logout() {
+    this.auth.logout();          // Limpia sesión/token
+    this.router.navigate(['/']); // Redirige al login
   }
 }

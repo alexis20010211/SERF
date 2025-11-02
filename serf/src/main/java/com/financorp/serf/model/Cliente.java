@@ -5,26 +5,60 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+/**
+ * Representa a un cliente dentro del sistema SERF.
+ * <p>
+ * Esta clase es una entidad JPA que mapea la tabla <b>cliente</b> en la base de datos.
+ * </p>
+ *
+ * <p>Contiene información básica del cliente como su nombre, correo electrónico
+ * y número de teléfono.</p>
+ *
+ * <p>Ejemplo de creación:</p>
+ * <pre>{@code
+ * Cliente cliente = new Cliente("María Gómez", "maria@correo.com", "987654321");
+ * }</pre>
+ *
+ * @author Alesi
+ * @version 1.0
+ */
 @Entity
 public class Cliente {
 
+    /** Identificador único del cliente (clave primaria). */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /** Nombre completo del cliente. */
     private String nombre;
-    private String correo;
-    private String telefono; // <-- agrega este campo
 
+    /** Correo electrónico del cliente. */
+    private String correo;
+
+    /** Número de teléfono del cliente. */
+    private String telefono;
+
+    /** Constructor vacío requerido por JPA. */
     public Cliente() {}
 
+    /**
+     * Constructor que inicializa un cliente con todos sus datos.
+     *
+     * @param nombre   nombre completo del cliente
+     * @param correo   correo electrónico del cliente
+     * @param telefono número de teléfono del cliente
+     */
     public Cliente(String nombre, String correo, String telefono) {
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
     }
 
-    // Getters y setters
+    // ==========================
+    // Getters y Setters
+    // ==========================
+
     public Long getId() {
         return id;
     }
@@ -49,7 +83,7 @@ public class Cliente {
         this.correo = correo;
     }
 
-    public String getTelefono() { // <-- este método elimina tu error
+    public String getTelefono() {
         return telefono;
     }
 

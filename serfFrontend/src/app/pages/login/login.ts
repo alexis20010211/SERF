@@ -19,7 +19,7 @@ export class Login implements OnInit {
 
   roles = ['Administrador', 'Filial'];
 
-  // Demo credenciales
+  // 🔹 Usuarios de ejemplo
   demoUsers = [
     { email: 'admin@financorp.com', password: 'admin123', role: 'Administrador' },
     { email: 'filial@financorp.com', password: 'filial123', role: 'Filial' }
@@ -42,6 +42,20 @@ export class Login implements OnInit {
   }
 
   ngOnInit() {
+    // 🔹 Si ya hay sesión activa → redirigir automáticamente
+    if (this.auth.isLoggedIn()) {
+      const role = this.auth.getRole();
+      if (role === 'Administrador') {
+        this.router.navigate(['/admin'], { replaceUrl: true });
+      } else if (role === 'Filial') {
+        this.router.navigate(['/filial'], { replaceUrl: true });
+      }
+    } else {
+      // Limpia cualquier sesión anterior
+      this.auth.logout();
+    }
+
+    // 🔹 Animación visual
     setTimeout(() => {
       document.querySelector('.login-container')?.classList.add('loaded');
     }, 100);
@@ -55,19 +69,21 @@ export class Login implements OnInit {
 
     const { username, password, role } = this.loginForm.value;
 
+    // 🔹 Validar credenciales (demo)
     const validUser = this.demoUsers.find(
       user => user.email === username && user.password === password && user.role === role
     );
 
     if (validUser) {
-      // Guardar rol en AuthService
-      this.auth.setRole(role);
+      // ✅ Guardar sesión y rol
+      this.auth.login(role);
 
-      alert(`¡Login exitoso! Bienvenido ${role}`);
-
-      // Redirigir según rol
-      if (role === 'Administrador') this.router.navigate(['/admin']);
-      else if (role === 'Filial') this.router.navigate(['/filial']);
+      // 🔹 Redirigir según el rol
+      if (role === 'Administrador') {
+        this.router.navigate(['/admin'], { replaceUrl: true });
+      } else if (role === 'Filial') {
+        this.router.navigate(['/filial'], { replaceUrl: true });
+      }
     } else {
       this.loginError = 'Usuario, contraseña o rol incorrecto';
     }

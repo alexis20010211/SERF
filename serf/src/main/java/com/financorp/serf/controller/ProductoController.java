@@ -15,6 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.financorp.serf.model.Producto;
 import com.financorp.serf.service.ProductoService;
 
+/**
+ * Controlador REST que gestiona las operaciones relacionadas con los productos.
+ * Permite listar, obtener, crear y eliminar productos del sistema.
+ * 
+ * <p>Ruta base: <b>/api/productos</b></p>
+ * 
+ * <p>Permite solicitudes desde cualquier origen gracias a la anotación {@code @CrossOrigin}.</p>
+ * 
+ * @author Alesi
+ * @version 1.0
+ */
 @RestController
 @RequestMapping("/api/productos")
 @CrossOrigin(origins = "*")
@@ -22,29 +33,52 @@ public class ProductoController {
 
     private final ProductoService productoService;
 
+    /**
+     * Constructor que inyecta el servicio de productos.
+     *
+     * @param productoService servicio que contiene la lógica de negocio para productos
+     */
     public ProductoController(ProductoService productoService) {
         this.productoService = productoService;
     }
 
-    // Obtener todos los productos
+    /**
+     * Obtiene la lista completa de productos disponibles en el sistema.
+     *
+     * @return lista de objetos {@link Producto}
+     */
     @GetMapping
     public List<Producto> listarProductos() {
         return productoService.obtenerTodos();
     }
 
-    // Obtener producto por ID
+    /**
+     * Obtiene un producto específico según su identificador único.
+     *
+     * @param id identificador del producto a buscar
+     * @return un {@link Optional} que contiene el producto si existe, o vacío si no se encuentra
+     */
     @GetMapping("/{id}")
     public Optional<Producto> obtenerProducto(@PathVariable Long id) {
-        return productoService.obtenerPorId(id); // Devuelve Optional<Producto>
+        return productoService.obtenerPorId(id);
     }
 
-    // Crear nuevo producto
+    /**
+     * Crea un nuevo producto y lo guarda en la base de datos.
+     *
+     * @param producto objeto {@link Producto} con los datos del nuevo producto
+     * @return el producto creado con su ID asignado
+     */
     @PostMapping
     public Producto crearProducto(@RequestBody Producto producto) {
         return productoService.guardarProducto(producto);
     }
 
-    // Eliminar producto
+    /**
+     * Elimina un producto existente según su identificador.
+     *
+     * @param id identificador del producto a eliminar
+     */
     @DeleteMapping("/{id}")
     public void eliminarProducto(@PathVariable Long id) {
         productoService.eliminarProducto(id);
