@@ -3,7 +3,6 @@ package com.financorp.serf.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,14 +20,13 @@ import com.financorp.serf.service.ProductoService;
  * 
  * <p>Ruta base: <b>/api/productos</b></p>
  * 
- * <p>Permite solicitudes desde cualquier origen gracias a la anotación {@code @CrossOrigin}.</p>
+ * <p>La configuración de CORS se gestiona globalmente en {@code CorsConfig}.</p>
  * 
  * @author Alesi
  * @version 1.0
  */
 @RestController
 @RequestMapping("/api/productos")
-@CrossOrigin(origins = "*")
 public class ProductoController {
 
     private final ProductoService productoService;
