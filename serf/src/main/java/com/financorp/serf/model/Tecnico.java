@@ -65,67 +65,15 @@ public class Tecnico {
     // Getters y Setters
     // ==============================
 
-    /**
-     * Obtiene el identificador único del técnico.
-     * @return id del técnico
-     */
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    /**
-     * Asigna el identificador único del técnico.
-     * @param id identificador a establecer
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    /**
-     * Obtiene el nombre del técnico.
-     * @return nombre del técnico
-     */
-    public String getNombre() {
-        return nombre;
-    }
+    public String getEspecialidad() { return especialidad; }
+    public void setEspecialidad(String especialidad) { this.especialidad = especialidad; }
 
-    /**
-     * Asigna el nombre del técnico.
-     * @param nombre nombre a establecer
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    /**
-     * Obtiene la especialidad del técnico.
-     * @return especialidad del técnico
-     */
-    public String getEspecialidad() {
-        return especialidad;
-    }
-
-    /**
-     * Asigna la especialidad del técnico.
-     * @param especialidad especialidad a establecer
-     */
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
-    }
-
-    /**
-     * Obtiene el nivel de experiencia o jerarquía del técnico.
-     * @return nivel del técnico
-     */
-    public String getNivel() {
-        return nivel;
-    }
-
-    /**
-     * Asigna el nivel de experiencia o jerarquía del técnico.
-     * @param nivel nivel a establecer
-     */
-    public void setNivel(String nivel) {
-        this.nivel = nivel;
-    }
+    public String getNivel() { return nivel; }
+    public void setNivel(String nivel) { this.nivel = nivel; }
 }

@@ -1,81 +1,60 @@
 package com.financorp.serf.model;
 
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
 
 /**
- * Subclase concreta que representa una solicitud de tipo <b>Financiera</b>
- * dentro del sistema SERF.
- * <p>
- * Esta clase extiende a {@link Solicitud} y define la implementación
- * específica del método {@code procesar()}, cumpliendo el rol de
- * <b>Producto Concreto</b> dentro del patrón de diseño
- * <b>Factory Method</b>.
- * </p>
- *
- * <p>Es gestionada por JPA mediante herencia con estrategia
- * {@link jakarta.persistence.InheritanceType#JOINED},
- * lo que significa que sus datos se almacenan en una tabla separada
- * pero relacionada con la tabla base de {@code Solicitud}.</p>
- *
- * <p>Ejemplo de uso:</p>
- * <pre>{@code
- * Solicitud solicitud = new SolicitudFinanciera("Carlos Ruiz", "financiera", 2500.00);
- * solicitud.procesar();
- * }</pre>
- *
- * @see com.financorp.serf.factory.SolicitudFactory
- * @see com.financorp.serf.model.Solicitud
- * @author Alesi
- * @version 1.0
+ * Representa una solicitud financiera dentro del sistema SERF.
+ * Hereda de {@link Solicitud} y se persiste en su propia tabla
+ * <b>solicitud_financiera</b> usando el patrón JOINED.
  */
 @Entity
-@DiscriminatorValue("FINANCIERA")
-@PrimaryKeyJoinColumn(name = "id")
+@Table(name = "solicitud_financiera")
 public class SolicitudFinanciera extends Solicitud {
 
-    /**
-     * Constructor vacío requerido por JPA.
-     */
+    /** Cuenta destino asociada a la solicitud financiera. */
+    private String cuentaDestino;
+
+    /** Constructor vacío requerido por JPA. */
     public SolicitudFinanciera() {
         super();
+        setTipo("financiera");
     }
 
     /**
-     * Constructor con parámetros que inicializa los atributos
-     * heredados de la clase base {@link Solicitud}.
+     * Constructor que inicializa la solicitud financiera con cliente, monto y cuenta destino.
      *
-     * @param cliente nombre o identificador del cliente
-     * @param tipo tipo de solicitud (en este caso, "financiera")
-     * @param monto monto solicitado o gestionado
+     * @param cliente nombre del cliente
+     * @param monto monto asociado
+     * @param cuentaDestino cuenta bancaria destino
      */
-    public SolicitudFinanciera(String cliente, String tipo, double monto) {
-        super(cliente, tipo, monto);
+    public SolicitudFinanciera(String cliente, double monto, String cuentaDestino) {
+        super(cliente, "financiera", monto);
+        this.cuentaDestino = cuentaDestino;
     }
 
     /**
-     * Implementación concreta del método abstracto {@link Solicitud#procesar()}.
-     * <p>Define el comportamiento específico de procesamiento
-     * para solicitudes de tipo financiera.</p>
+     * Lógica específica para procesar la solicitud financiera.
      */
     @Override
     public void procesar() {
-        System.out.println("Procesando solicitud financiera para " + getCliente() +
-                " por un monto de $" + getMonto());
+        System.out.println("Procesando solicitud financiera de " + getCliente() +
+                           " por un monto de " + getMonto() +
+                           " hacia la cuenta " + cuentaDestino);
+        // Aquí iría la lógica real de pago, validación o registro contable
     }
 
-    /**
-     * Devuelve una representación textual legible de la solicitud.
-     *
-     * @return cadena con los datos principales de la solicitud
-     */
+    // Getters y Setters
+    public String getCuentaDestino() { return cuentaDestino; }
+    public void setCuentaDestino(String cuentaDestino) { this.cuentaDestino = cuentaDestino; }
+
     @Override
     public String toString() {
         return "SolicitudFinanciera{" +
-                "cliente='" + getCliente() + '\'' +
-                ", tipo='" + getTipo() + '\'' +
-                ", monto=" + getMonto() +
-                '}';
+               "id=" + getId() +
+               ", cliente='" + getCliente() + '\'' +
+               ", monto=" + getMonto() +
+               ", cuentaDestino='" + cuentaDestino + '\'' +
+               '}';
     }
 }

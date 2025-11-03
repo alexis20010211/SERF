@@ -2,7 +2,6 @@ package com.financorp.serf.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +16,6 @@ import com.financorp.serf.service.ClienteService;
 
 @RestController
 @RequestMapping("/api/clientes")
-// Configuración CORS específica para tu frontend Angular
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -27,21 +24,25 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
+    // Listar todos los clientes (GET público)
     @GetMapping
     public List<Cliente> listarClientes() {
         return clienteService.obtenerTodos();
     }
 
+    // Obtener cliente por ID (GET público)
     @GetMapping("/{id}")
     public Cliente obtenerCliente(@PathVariable Long id) {
         return clienteService.obtenerPorId(id);
     }
 
+    // Crear cliente (requiere autenticación)
     @PostMapping
     public Cliente crearCliente(@RequestBody Cliente cliente) {
         return clienteService.guardar(cliente);
     }
 
+    // Actualizar cliente (requiere autenticación)
     @PutMapping("/{id}")
     public Cliente actualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
         Cliente existente = clienteService.obtenerPorId(id);
@@ -51,9 +52,10 @@ public class ClienteController {
             existente.setTelefono(cliente.getTelefono());
             return clienteService.guardar(existente);
         }
-        return null; // opcional: lanzar excepción 404
+        return null;
     }
 
+    // Eliminar cliente (requiere autenticación)
     @DeleteMapping("/{id}")
     public void eliminarCliente(@PathVariable Long id) {
         clienteService.eliminar(id);

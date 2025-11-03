@@ -4,36 +4,35 @@ import com.financorp.serf.model.Producto;
 
 /**
  * Fábrica responsable de la creación de instancias de {@link Producto}.
- * <p>
- * Este patrón permite centralizar la lógica de construcción de objetos,
- * facilitando la extensibilidad y el mantenimiento del código.
- * </p>
- *
- * <p><b>Patrón aplicado:</b> Factory Method</p>
  * 
- * <p>Ejemplo de uso:</p>
- * <pre>{@code
- * Producto laptop = ProductoFactory.crearProducto("Laptop Lenovo", 3500.0, "Tecnología");
- * }</pre>
- * 
- * @author Alesi
- * @version 1.0
+ * Patrón aplicado: Factory Method
  */
 public class ProductoFactory {
 
     /**
-     * Crea una nueva instancia de {@link Producto} configurada con los valores proporcionados.
+     * Crea una nueva instancia de {@link Producto} configurada con valores básicos.
      *
-     * @param nombre    nombre del producto
-     * @param precio    precio del producto
+     * @param nombre nombre del producto
+     * @param precioVenta precio sugerido de venta
      * @param categoria categoría o tipo del producto
-     * @return una nueva instancia de {@link Producto} con los datos asignados
+     * @param moneda moneda local (PEN, USD, EUR)
+     * @param stock stock inicial del lote
+     * @return nueva instancia de {@link Producto}
      */
-    public static Producto crearProducto(String nombre, double precio, String categoria) {
+    public static Producto crearProducto(
+            String nombre,
+            double precioVenta,
+            String categoria,
+            String moneda,
+            int stock
+    ) {
         Producto producto = new Producto();
         producto.setNombre(nombre);
-        producto.setPrecio(precio);
+        producto.setPrecioVentaSugerido(precioVenta);
         producto.setCategoria(categoria);
+        producto.setMoneda(moneda);
+        producto.setStock(stock);
+
         return producto;
     }
 }

@@ -1,12 +1,14 @@
 package com.financorp.serf.controller;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,69 +17,62 @@ import com.financorp.serf.model.Producto;
 import com.financorp.serf.service.ProductoService;
 
 /**
- * Controlador REST que gestiona las operaciones relacionadas con los productos.
- * Permite listar, obtener, crear y eliminar productos del sistema.
- * 
- * <p>Ruta base: <b>/api/productos</b></p>
- * 
- * <p>La configuración de CORS se gestiona globalmente en {@code CorsConfig}.</p>
- * 
- * @author Alesi
- * @version 1.0
+ * Controlador REST para gestionar productos en el sistema SERF.
+ * Permite listar, obtener, crear, actualizar y eliminar productos.
+ *
+ * Ruta base: /api/productos
+ * Autor: Alesi
+ * Versión: 1.2
  */
 @RestController
 @RequestMapping("/api/productos")
+// Permitir solicitudes desde Angular u otros frontends
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 public class ProductoController {
 
     private final ProductoService productoService;
 
-    /**
-     * Constructor que inyecta el servicio de productos.
-     *
-     * @param productoService servicio que contiene la lógica de negocio para productos
-     */
     public ProductoController(ProductoService productoService) {
         this.productoService = productoService;
     }
 
-    /**
-     * Obtiene la lista completa de productos disponibles en el sistema.
-     *
-     * @return lista de objetos {@link Producto}
-     */
+    // =========================
+    // ENDPOINTS PÚBLICOS
+    // =========================
+
+    // 🔹 Listar todos los productos
     @GetMapping
     public List<Producto> listarProductos() {
-        return productoService.obtenerTodos();
+        return productoService.listarProductos();
     }
 
-    /**
-     * Obtiene un producto específico según su identificador único.
-     *
-     * @param id identificador del producto a buscar
-     * @return un {@link Optional} que contiene el producto si existe, o vacío si no se encuentra
-     */
+    // 🔹 Obtener un producto por id
     @GetMapping("/{id}")
-    public Optional<Producto> obtenerProducto(@PathVariable Long id) {
-        return productoService.obtenerPorId(id);
+    public Producto obtenerProducto(@PathVariable Long id) {
+        return productoService.obtenerProducto(id);
     }
 
-    /**
-     * Crea un nuevo producto y lo guarda en la base de datos.
-     *
-     * @param producto objeto {@link Producto} con los datos del nuevo producto
-     * @return el producto creado con su ID asignado
-     */
+    // =========================
+    // ENDPOINTS PROTEGIDOS (ADMIN/FILIAL)
+    // =========================
+
+    // 🔹 Crear un producto
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN','FILIAL')")
     public Producto crearProducto(@RequestBody Producto producto) {
-        return productoService.guardarProducto(producto);
+        return productoService.crearProducto(producto);
     }
 
-    /**
-     * Elimina un producto existente según su identificador.
-     *
-     * @param id identificador del producto a eliminar
-     */
+    // 🔹 Actualizar un producto
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','FILIAL')")
+    public Producto actualizarProducto(@PathVariable Long id, @RequestBody Producto datos) {
+        return productoService.actualizarProducto(id, datos);
+    }
+
+    // 🔹 Eliminar un producto
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','FILIAL')")
     public void eliminarProducto(@PathVariable Long id) {
         productoService.eliminarProducto(id);
     }

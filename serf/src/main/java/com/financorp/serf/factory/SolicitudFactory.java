@@ -2,42 +2,39 @@ package com.financorp.serf.factory;
 
 import com.financorp.serf.model.Solicitud;
 import com.financorp.serf.model.SolicitudFinanciera;
+import com.financorp.serf.model.SolicitudTecnica;
+import com.financorp.serf.model.SolicitudVentas;
 
 /**
  * Fábrica responsable de la creación de objetos {@link Solicitud}.
- * <p>
- * Implementa el patrón de diseño <b>Factory Method</b>, permitiendo crear
- * diferentes tipos de solicitudes sin exponer la lógica interna de instanciación.
- * </p>
- *
- * <p>Actualmente, la fábrica soporta el tipo:</p>
- * <ul>
- *   <li><b>financiera</b> → {@link SolicitudFinanciera}</li>
- * </ul>
- *
- * <p>Ejemplo de uso:</p>
- * <pre>{@code
- * Solicitud solicitud = SolicitudFactory.crearSolicitud("financiera", "Solicitud de crédito", 15000.0);
- * }</pre>
- *
- * @author Alesi
- * @version 1.0
+ * Implementa el patrón Factory Method.
  */
 public class SolicitudFactory {
 
     /**
-     * Crea una nueva instancia de {@link Solicitud} en función del tipo indicado.
+     * Crea una nueva instancia de {@link Solicitud} según el tipo indicado.
      *
-     * @param tipo         tipo de solicitud (por ejemplo: "financiera")
-     * @param descripcion  descripción breve de la solicitud
-     * @param monto        monto asociado a la solicitud
-     * @return una instancia concreta de {@link Solicitud} correspondiente al tipo especificado
-     * @throws IllegalArgumentException si el tipo de solicitud no es válido o no está implementado
+     * @param tipo          tipo de solicitud ("financiera", "técnica", "ventas")
+     * @param cliente       nombre o identificador del cliente
+     * @param monto         monto asociado a la solicitud
+     * @param cuentaDestino solo usado para solicitudes financieras, puede ser null o ""
+     * @return instancia concreta de {@link Solicitud}
+     * @throws IllegalArgumentException si el tipo de solicitud no es válido
      */
-    public static Solicitud crearSolicitud(String tipo, String descripcion, double monto) {
-        if ("financiera".equalsIgnoreCase(tipo)) {
-            return new SolicitudFinanciera(descripcion, tipo, monto);
-        }
-        throw new IllegalArgumentException("Tipo de solicitud no válido: " + tipo);
+    public static Solicitud crearSolicitud(String tipo, String cliente, double monto, String cuentaDestino) {
+        return switch (tipo.toLowerCase()) {
+            case "financiera" -> new SolicitudFinanciera(cliente, monto, 
+                                                         cuentaDestino != null ? cuentaDestino : "");
+            case "técnica", "tecnica" -> new SolicitudTecnica(cliente, "técnica", monto);
+            case "ventas" -> new SolicitudVentas(cliente, "ventas", monto);
+            default -> throw new IllegalArgumentException("Tipo de solicitud no válido: " + tipo);
+        };
+    }
+
+    /**
+     * Sobrecarga simple cuando no se necesita cuentaDestino (por ejemplo, técnica o ventas).
+     */
+    public static Solicitud crearSolicitud(String tipo, String cliente, double monto) {
+        return crearSolicitud(tipo, cliente, monto, "");
     }
 }

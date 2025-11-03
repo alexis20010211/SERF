@@ -3,6 +3,7 @@ package com.financorp.serf.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ public class SolicitudController {
         this.solicitudService = solicitudService;
     }
 
+    // 🔹 GET públicos: cualquiera puede listar o ver solicitud
     @GetMapping
     public List<Solicitud> listarSolicitudes() {
         return solicitudService.obtenerTodas();
@@ -34,12 +36,15 @@ public class SolicitudController {
         return solicitudService.obtenerPorId(id);
     }
 
+    // 🔹 POST y DELETE protegidos
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'TECNICO')")
     public Solicitud crearSolicitud(@RequestBody Solicitud solicitud) {
         return solicitudService.guardarSolicitud(solicitud);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TECNICO')")
     public void eliminarSolicitud(@PathVariable Long id) {
         solicitudService.eliminarSolicitud(id);
     }

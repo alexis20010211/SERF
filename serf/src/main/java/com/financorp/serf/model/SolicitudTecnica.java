@@ -28,8 +28,6 @@ import jakarta.persistence.PrimaryKeyJoinColumn;
  *
  * @see com.financorp.serf.model.Solicitud
  * @see com.financorp.serf.factory.SolicitudFactory
- * @author Alesi
- * @version 1.0
  */
 @Entity
 @DiscriminatorValue("TECNICA")

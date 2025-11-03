@@ -26,8 +26,13 @@ import com.financorp.serf.patterns.singleton.ConfiguracionGlobal;
  */
 public class ReporteGeneral implements Reporte {
 
+    /** País sede de la corporación */
     private String pais;
+
+    /** Moneda corporativa */
     private String moneda;
+
+    /** Formato de fecha global */
     private String formatoFecha;
 
     /**
@@ -51,60 +56,35 @@ public class ReporteGeneral implements Reporte {
     @Override
     public String generar() {
         return """
-📄 Reporte General generado con configuración:
+📄 REPORTE GENERAL
+Configuración Global:
 - País: %s
 - Moneda: %s
 - Formato de fecha: %s
 """.formatted(pais, moneda, formatoFecha);
     }
 
-    // ---------------------- Getters y Setters ----------------------
+    // ==========================
+    // Getters y Setters
+    // ==========================
+    public String getPais() { return pais; }
+    public void setPais(String pais) { this.pais = pais; }
 
-    /**
-     * Obtiene el país sede del reporte.
-     * @return nombre del país sede
-     */
-    public String getPais() {
-        return pais;
-    }
+    public String getMoneda() { return moneda; }
+    public void setMoneda(String moneda) { this.moneda = moneda; }
 
-    /**
-     * Establece manualmente el país sede (opcional).
-     * @param pais país sede del reporte
-     */
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
+    public String getFormatoFecha() { return formatoFecha; }
+    public void setFormatoFecha(String formatoFecha) { this.formatoFecha = formatoFecha; }
 
-    /**
-     * Obtiene la moneda corporativa.
-     * @return tipo de moneda configurada
-     */
-    public String getMoneda() {
-        return moneda;
-    }
-
-    /**
-     * Asigna manualmente la moneda corporativa (opcional).
-     * @param moneda nombre de la moneda
-     */
-    public void setMoneda(String moneda) {
-        this.moneda = moneda;
-    }
-
-    /**
-     * Obtiene el formato de fecha configurado.
-     * @return formato de fecha corporativo
-     */
-    public String getFormatoFecha() {
-        return formatoFecha;
-    }
-
-    /**
-     * Define manualmente el formato de fecha (opcional).
-     * @param formatoFecha formato de fecha a aplicar
-     */
-    public void setFormatoFecha(String formatoFecha) {
-        this.formatoFecha = formatoFecha;
+    // ==========================
+    // toString para debugging
+    // ==========================
+    @Override
+    public String toString() {
+        return "ReporteGeneral{" +
+                "pais='" + pais + '\'' +
+                ", moneda='" + moneda + '\'' +
+                ", formatoFecha='" + formatoFecha + '\'' +
+                '}';
     }
 }

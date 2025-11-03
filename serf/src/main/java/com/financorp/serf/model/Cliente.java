@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /**
  * Representa a un cliente dentro del sistema SERF.
@@ -20,9 +21,10 @@ import jakarta.persistence.Id;
  * }</pre>
  *
  * @author Alesi
- * @version 1.0
+ * @version 1.1
  */
 @Entity
+@Table(name = "cliente") // asegura que se mapea con la tabla correcta
 public class Cliente {
 
     /** Identificador único del cliente (clave primaria). */
@@ -89,5 +91,15 @@ public class Cliente {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", correo='" + correo + '\'' +
+                ", telefono='" + telefono + '\'' +
+                '}';
     }
 }

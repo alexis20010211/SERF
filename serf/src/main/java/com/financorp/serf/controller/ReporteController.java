@@ -3,6 +3,7 @@ package com.financorp.serf.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ public class ReporteController {
     @Autowired
     private ReporteService reporteService;
 
+    // 🔹 GET públicos: cualquiera puede consultar
     @GetMapping
     public List<ReporteEntity> getAllReportes() {
         return reporteService.getAllReportes();
@@ -35,17 +37,21 @@ public class ReporteController {
         return reporteService.getReporteById(id);
     }
 
+    // 🔹 POST, PUT y DELETE protegidos: solo ADMIN
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ReporteEntity createReporte(@RequestBody ReporteEntity reporte) {
         return reporteService.saveReporte(reporte);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ReporteEntity updateReporte(@PathVariable Long id, @RequestBody ReporteEntity reporte) {
         return reporteService.updateReporte(id, reporte);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteReporte(@PathVariable Long id) {
         reporteService.deleteReporte(id);
     }

@@ -6,35 +6,30 @@ import com.financorp.serf.patterns.singleton.ConfiguracionGlobal;
  * Representa un reporte financiero dentro del sistema SERF.
  * <p>
  * Implementa la interfaz {@link Reporte} y utiliza el patrón
- * <b>Singleton</b> mediante {@link ConfiguracionGlobal} para
- * obtener los valores de configuración global al momento de la creación.
+ * Singleton mediante {@link ConfiguracionGlobal} para obtener
+ * valores globales del sistema.
  * </p>
  *
- * <p>Este reporte contiene información relacionada con el país sede,
- * la moneda corporativa y el formato de fecha definidos globalmente
- * por la organización.</p>
- *
- * <p>Ejemplo de uso:</p>
- * <pre>{@code
- * ReporteFinanciero reporte = new ReporteFinanciero();
- * System.out.println(reporte.generar());
- * }</pre>
- *
- * @author Alesi
- * @version 1.0
- * @see com.financorp.serf.model.Reporte
- * @see com.financorp.serf.patterns.singleton.ConfiguracionGlobal
+ * <p>Puede ser construido mediante un Builder (ReporteFinancieroBuilder)
+ * para definir título, periodo, departamento, datos, gráficos y conclusiones.</p>
  */
 public class ReporteFinanciero implements Reporte {
 
+    // ====== Datos del Singleton ======
     private String pais;
     private String moneda;
     private String formatoFecha;
 
+    // ====== Datos definidos por el Builder ======
+    private String titulo;
+    private String periodo;
+    private String departamento;
+    private String datos;
+    private String graficos;
+    private String conclusiones;
+
     /**
-     * Constructor que inicializa los valores del reporte utilizando
-     * la configuración global proporcionada por el Singleton
-     * {@link ConfiguracionGlobal}.
+     * Constructor por defecto: inicializa valores globales desde el Singleton.
      */
     public ReporteFinanciero() {
         ConfiguracionGlobal config = ConfiguracionGlobal.getInstancia();
@@ -43,69 +38,55 @@ public class ReporteFinanciero implements Reporte {
         this.formatoFecha = config.getFormatoFecha();
     }
 
-    /**
-     * Genera el reporte financiero utilizando los parámetros actuales
-     * de configuración.
-     *
-     * @return cadena con el contenido del reporte financiero generado
-     */
+    // ====== Implementación del método de la interfaz ======
     @Override
     public String generar() {
         return """
-📊 Reporte Financiero generado con configuración:
+📊 REPORTE FINANCIERO
+Título: %s
+Periodo: %s
+Departamento: %s
+
+Datos: %s
+Gráficos: %s
+Conclusiones: %s
+
+🌎 Configuración Global:
 - País: %s
 - Moneda: %s
-- Formato fecha: %s
-""".formatted(pais, moneda, formatoFecha);
+- Formato Fecha: %s
+""".formatted(
+                titulo, periodo, departamento,
+                datos, graficos, conclusiones,
+                pais, moneda, formatoFecha
+        );
     }
 
-    // ---------------------- Getters y Setters ----------------------
+    // ====== Getters y Setters ======
+    public String getTitulo() { return titulo; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
 
-    /**
-     * Obtiene el país sede configurado.
-     * @return nombre del país sede
-     */
-    public String getPais() {
-        return pais;
-    }
+    public String getPeriodo() { return periodo; }
+    public void setPeriodo(String periodo) { this.periodo = periodo; }
 
-    /**
-     * Establece manualmente el país sede (opcional).
-     * @param pais país sede del reporte
-     */
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
+    public String getDepartamento() { return departamento; }
+    public void setDepartamento(String departamento) { this.departamento = departamento; }
 
-    /**
-     * Obtiene la moneda utilizada en el reporte.
-     * @return nombre de la moneda corporativa
-     */
-    public String getMoneda() {
-        return moneda;
-    }
+    public String getDatos() { return datos; }
+    public void setDatos(String datos) { this.datos = datos; }
 
-    /**
-     * Asigna manualmente la moneda del reporte (opcional).
-     * @param moneda tipo de moneda a utilizar
-     */
-    public void setMoneda(String moneda) {
-        this.moneda = moneda;
-    }
+    public String getGraficos() { return graficos; }
+    public void setGraficos(String graficos) { this.graficos = graficos; }
 
-    /**
-     * Obtiene el formato de fecha configurado.
-     * @return formato de fecha corporativo
-     */
-    public String getFormatoFecha() {
-        return formatoFecha;
-    }
+    public String getConclusiones() { return conclusiones; }
+    public void setConclusiones(String conclusiones) { this.conclusiones = conclusiones; }
 
-    /**
-     * Establece manualmente el formato de fecha del reporte (opcional).
-     * @param formatoFecha formato de fecha a aplicar
-     */
-    public void setFormatoFecha(String formatoFecha) {
-        this.formatoFecha = formatoFecha;
-    }
+    public String getPais() { return pais; }
+    public void setPais(String pais) { this.pais = pais; }
+
+    public String getMoneda() { return moneda; }
+    public void setMoneda(String moneda) { this.moneda = moneda; }
+
+    public String getFormatoFecha() { return formatoFecha; }
+    public void setFormatoFecha(String formatoFecha) { this.formatoFecha = formatoFecha; }
 }

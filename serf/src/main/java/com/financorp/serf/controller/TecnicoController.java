@@ -3,6 +3,7 @@ package com.financorp.serf.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.access.prepost.PreAuthorize; // 🔹 IMPORT necesario
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,7 @@ public class TecnicoController {
         this.tecnicoService = tecnicoService;
     }
 
+    // 🔹 GET públicos: cualquiera puede listar o ver técnico
     @GetMapping
     public List<Tecnico> listarTecnicos() {
         return tecnicoService.obtenerTodos();
@@ -37,12 +39,16 @@ public class TecnicoController {
         return tecnicoService.obtenerPorId(id);
     }
 
+    // 🔹 POST protegido: solo ADMIN o TECNICO
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'TECNICO')")
     public Tecnico crearTecnico(@RequestBody Tecnico tecnico) {
         return tecnicoService.guardarTecnico(tecnico);
     }
 
+    // 🔹 DELETE protegido: solo ADMIN o TECNICO
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TECNICO')")
     public void eliminarTecnico(@PathVariable Long id) {
         tecnicoService.eliminarTecnico(id);
     }
