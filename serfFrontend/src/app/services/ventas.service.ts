@@ -1,43 +1,38 @@
+// src/app/services/ventas.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpBaseService } from './http-base.service';
+import { Observable } from 'rxjs';
 import { VentaDTO } from '../dto/venta.dto';
-
-// Opcional: puedes crear un DTO para el resumen de ventas
-// import { ResumenVentasDTO } from '../dto/resumen-ventas.dto';
 
 @Injectable({ providedIn: 'root' })
 export class VentasService extends HttpBaseService {
-  constructor(http: HttpClient) { super(http); }
+  constructor(http: HttpClient) {
+    super(http);
+  }
 
   /**
    * Listar todas las ventas
-   * @returns Promise<VentaDTO[]> siempre devuelve un array, aunque la respuesta sea vacía
+   * @returns Observable con array de ventas
    */
-  list(): Promise<VentaDTO[]> {
-    return this.http.get<VentaDTO[]>(`${this.api}/ventas`)
-      .toPromise()
-      .then(res => res || []); // evita undefined
+  list(): Observable<VentaDTO[]> {
+    return this.http.get<VentaDTO[]>(`${this.api}/ventas`);
   }
 
   /**
    * Obtener resumen de ventas
-   * @returns Promise<any> o puedes usar un DTO
+   * @returns Observable con resumen de ventas
    */
-  getResumen(): Promise<any> {
-    return this.http.get<any>(`${this.api}/ventas/resumen`)
-      .toPromise()
-      .then(res => res || {}); // devuelve un objeto vacío si es undefined
+  getResumen(): Observable<any> {
+    return this.http.get<any>(`${this.api}/ventas/resumen`);
   }
 
   /**
    * Crear una nueva venta
    * @param payload VentaDTO
-   * @returns Promise<VentaDTO>
+   * @returns Observable con la venta creada
    */
-  create(payload: VentaDTO): Promise<VentaDTO> {
-    return this.http.post<VentaDTO>(`${this.api}/ventas`, payload)
-      .toPromise()
-      .then(res => res!); // asegura que no sea undefined
+  create(payload: VentaDTO): Observable<VentaDTO> {
+    return this.http.post<VentaDTO>(`${this.api}/ventas`, payload);
   }
 }

@@ -1,0 +1,31 @@
+.productos-cliente-container {
+    padding: 20px;
+}
+.productos-cliente-container h1 {
+    color: #009966;
+}
+.productos-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.producto-card {
+    background-color: #e0f7fa;
+    padding: 15px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+}
+.producto-card button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #00796b;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.producto-card button:hover {
+    background-color: #004d40;
+}

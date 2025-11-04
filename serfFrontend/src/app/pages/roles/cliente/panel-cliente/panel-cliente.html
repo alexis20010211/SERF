@@ -1,0 +1,17 @@
+<div class="panel-cliente-container">
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo SERF">
+      <h2>Cliente</h2>
+    </div>
+    <nav class="menu">
+      <a routerLink="/cliente/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/cliente/productos" routerLinkActive="active">Productos</a>
+      <a href="#" (click)="logout()">Cerrar sesión</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -1,74 +1,86 @@
-<div class="admin-wrapper">
+<div class="admin-container">
 
   <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-logo">FINANCORP</div>
-      <div class="brand-sub">Admin</div>
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <h2>FinanCorp</h2>
+      <span>Administrador</span>
     </div>
+    <ul>
+      <li *ngFor="let m of modulos" (click)="navegarModulo(m.ruta)">
+        {{ m.nombre }}
+      </li>
+    </ul>
+    <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+  </nav>
 
-    <nav class="nav">
-      <ul>
-        <li *ngFor="let m of modulos" class="nav-item">
-          <!-- ✅ Navegación Angular usando routerLink -->
-          <button class="nav-btn" [routerLink]="['/admin', m.ruta]" routerLinkActive="active">
-            <span class="nav-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zM13 21h8V11h-8v10zm0-18v6h8V3h-8z" fill="currentColor"/>
-              </svg>
-            </span>
-            <span class="nav-text">{{ m.nombre }}</span>
-          </button>
-        </li>
-      </ul>
-    </nav>
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    
+    <!-- HEADER DASHBOARD -->
+    <section class="dashboard-header">
+      <h1>Bienvenido al Panel Admin</h1>
+      <span class="fecha">{{ today() }}</span>
+    </section>
 
-    <div class="sidebar-footer">
-      <button class="upgrade-btn">Soporte</button>
-    </div>
-  </aside>
-
-  <!-- MAIN CONTENT -->
-  <main class="main">
-
-    <!-- TOPBAR -->
-    <header class="topbar">
-      <div class="top-left">
-        <h1 class="page-title">Panel de Administración</h1>
-        <p class="page-sub">Bienvenido — administra módulos, revisa KPIs y reportes</p>
+    <!-- TARJETAS DE ESTADÍSTICAS -->
+    <section class="dashboard-cards">
+      <div class="card card-blue">
+        <h3>Clientes</h3>
+        <p>120</p>
       </div>
-
-      <div class="top-right">
-        <div class="search">
-          <input type="search" placeholder="Buscar..." />
-          <button class="icon-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </button>
-        </div>
-
-        <button class="icon-btn notif" title="Notificaciones">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M15 17H9v-6a3 3 0 10-6 0v6H1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <span class="badge">3</span>
-        </button>
-
-        <div class="user">
-          <div class="avatar">A</div>
-          <div class="user-info">
-            <div class="user-name">Admin</div>
-            <div class="user-role">Administrador</div>
-          </div>
-          <!-- ✅ Botón de Cerrar Sesión -->
-          <button class="logout-btn" (click)="logout()">Salir</button>
-        </div>
+      <div class="card card-green">
+        <h3>Ventas</h3>
+        <p>45</p>
       </div>
-    </header>
+      <div class="card card-orange">
+        <h3>Productos</h3>
+        <p>32</p>
+      </div>
+      <div class="card card-red">
+        <h3>Técnicos</h3>
+        <p>8</p>
+      </div>
+    </section>
 
-    <!-- ✅ AQUÍ SE CARGA EL DASHBOARD O EL MÓDULO SELECCIONADO -->
-    <router-outlet></router-outlet>
+    <!-- TABLA ÚLTIMAS VENTAS -->
+    <section class="dashboard-table">
+      <h2>Últimas Ventas</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Producto</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>001</td>
+            <td>Juan Pérez</td>
+            <td>Laptop XYZ</td>
+            <td>$1200</td>
+            <td>{{ today() }}</td>
+          </tr>
+          <tr>
+            <td>002</td>
+            <td>María López</td>
+            <td>Smartphone ABC</td>
+            <td>$800</td>
+            <td>{{ today() }}</td>
+          </tr>
+          <tr>
+            <td>003</td>
+            <td>Carlos Ruiz</td>
+            <td>Accesorio 123</td>
+            <td>$150</td>
+            <td>{{ today() }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
   </main>
 </div>

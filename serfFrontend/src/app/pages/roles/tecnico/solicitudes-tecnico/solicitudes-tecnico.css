@@ -1,0 +1,16 @@
+.solicitudes-tecnico-container {
+    padding: 20px;
+}
+.solicitudes-tecnico-container h1 {
+    color: #0066cc;
+}
+.solicitudes-tecnico-container ul {
+    list-style: none;
+    padding: 0;
+}
+.solicitudes-tecnico-container li {
+    background-color: #f8f9fa;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+}

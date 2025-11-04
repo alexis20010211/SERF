@@ -1,0 +1,19 @@
+.dashboard-cliente-container {
+    padding: 20px;
+}
+.dashboard-cliente-container h1 {
+    color: #009966;
+}
+.summary {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+.summary-card {
+    background-color: #e0f7fa;
+    padding: 15px;
+    border-radius: 10px;
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+}

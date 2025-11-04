@@ -1,9 +1,11 @@
+// ===============================================================
+// 🌐 app.routes.ts — Rutas principales del sistema FINANCORP
+// Configura la navegación global para todos los roles del sistema
+// ===============================================================
+
 import { Routes } from '@angular/router';
 
-// 🔹 Servicios y Guards
-import { AuthGuard } from './services/auth.guard';
-
-// 🔹 Páginas generales (standalone)
+// 🌍 Páginas generales (standalone)
 import { Login } from './pages/login/login';
 import { Productos } from './pages/productos/productos';
 import { Ventas } from './pages/ventas/ventas';
@@ -13,27 +15,41 @@ import { Tecnico } from './pages/tecnico/tecnico';
 import { Solicitudes } from './pages/solicitudes/solicitudes';
 import { Configuracion } from './pages/configuracion/configuracion';
 
-// 🔹 Admin pages
+// 🧩 ADMINISTRADOR
 import { AdminPanel } from './pages/roles/admin/admin-panel/admin-panel';
 import { DashboardAdmin } from './pages/roles/admin/dashboard-admin/dashboard-admin';
 import { Usuarios } from './pages/roles/admin/gestion-usuarios/gestion-usuarios';
 import { ReportesAdmin } from './pages/roles/admin/reportes-admin/reportes-admin';
 
-// 🔹 Filial pages
-import { PanelFilial } from './pages/roles/filial/panel-filial/panel-filial'; // ✅ Nuevo contenedor
+// 🧩 FILIAL
+import { PanelFilial } from './pages/roles/filial/panel-filial/panel-filial';
 import { DashboardFilial } from './pages/roles/filial/dashboard-filial/dashboard-filial';
 import { ClientesFilial } from './pages/roles/filial/clientes/clientes';
 import { VentasFilial } from './pages/roles/filial/ventas/ventas';
 
+// 🧩 TÉCNICO
+import { PanelTecnico } from './pages/roles/tecnico/panel-tecnico/panel-tecnico';
+import { DashboardTecnicoComponent } from './pages/roles/tecnico/dashboard-tecnico/dashboard-tecnico';
+import { SolicitudesTecnicoPage } from './pages/roles/tecnico/solicitudes-tecnico/solicitudes-tecnico';
+
+// 🧩 CLIENTE
+import { PanelCliente } from './pages/roles/cliente/panel-cliente/panel-cliente';
+import { DashboardClienteComponent } from './pages/roles/cliente/dashboard-cliente/dashboard-cliente';
+import { ProductosClientePage } from './pages/roles/cliente/productos-cliente/productos-cliente';
+
+// ===============================================================
+// 🌍 DEFINICIÓN DE RUTAS (SIN AuthGuard)
+// ===============================================================
+
 export const appRoutes: Routes = [
-  // 🔹 Página inicial (Login)
+
+  // LOGIN
   { path: '', component: Login, pathMatch: 'full' },
 
-  // 🔹 ADMINISTRADOR (protegido por rol)
+  // ADMINISTRADOR
   {
     path: 'admin',
     component: AdminPanel,
-    canActivate: [AuthGuard],
     data: { role: 'Administrador' },
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -49,21 +65,44 @@ export const appRoutes: Routes = [
     ]
   },
 
-  // 🔹 FILIAL (protegido por rol)
+  // FILIAL
   {
     path: 'filial',
-    component: PanelFilial, // ✅ Nuevo contenedor con <router-outlet>
-    canActivate: [AuthGuard],
+    component: PanelFilial,
     data: { role: 'Filial' },
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardFilial },
       { path: 'ventas', component: VentasFilial },
-      { path: 'reportes', component: Reportes },
       { path: 'clientes', component: ClientesFilial },
+      { path: 'reportes', component: Reportes },
     ]
   },
 
-  // 🔹 Cualquier ruta no válida → Login
+  // TÉCNICO
+  {
+    path: 'tecnico',
+    component: PanelTecnico,
+    data: { role: 'Tecnico' },
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardTecnicoComponent },
+      { path: 'solicitudes', component: SolicitudesTecnicoPage },
+    ]
+  },
+
+  // CLIENTE
+  {
+    path: 'cliente',
+    component: PanelCliente,
+    data: { role: 'Cliente' },
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardClienteComponent },
+      { path: 'productos', component: ProductosClientePage },
+    ]
+  },
+
+  // RUTA POR DEFECTO
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

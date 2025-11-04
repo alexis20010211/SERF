@@ -1,48 +1,48 @@
+// src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private userRole: 'Administrador' | 'Filial' | null = null;
 
-  constructor() {
-    // ✅ Si hay datos en localStorage, los cargamos al iniciar
-    const storedRole = localStorage.getItem('userRole');
-    if (storedRole === 'Administrador' || storedRole === 'Filial') {
-      this.userRole = storedRole;
+  constructor(private router: Router) {}
+
+  login(email: string, password: string): boolean {
+    const users = [
+      { email: 'admin@financorp.com', password: 'admin123', rol: 'Administrador' },
+      { email: 'filial@financorp.com', password: 'filial123', rol: 'Filial' },
+      { email: 'tecnico@financorp.com', password: 'tecnico123', rol: 'Tecnico' },
+      { email: 'cliente@financorp.com', password: 'cliente123', rol: 'Cliente' }
+    ];
+
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if (user) {
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('role', user.rol);
+      localStorage.setItem('email', user.email);
+      return true;
     }
+
+    return false;
   }
 
-  // ✅ Guarda el rol y marca como logueado
-  login(role: 'Administrador' | 'Filial') {
-    this.userRole = role;
-    localStorage.setItem('userRole', role);
-    localStorage.setItem('loggedIn', 'true');
+  logout(): void {
+    localStorage.clear();
+    this.router.navigate(['']);
   }
 
-  // ✅ Devuelve el rol actual
-  getRole(): 'Administrador' | 'Filial' | null {
-    if (!this.userRole) {
-      const storedRole = localStorage.getItem('userRole');
-      if (storedRole === 'Administrador' || storedRole === 'Filial') {
-        this.userRole = storedRole;
-      }
-    }
-    return this.userRole;
-  }
-
-  // ✅ Verifica si está logueado
   isLoggedIn(): boolean {
-    const logged = localStorage.getItem('loggedIn');
-    const role = localStorage.getItem('userRole');
-    return logged === 'true' && (role === 'Administrador' || role === 'Filial');
+    return localStorage.getItem('isLoggedIn') === 'true';
   }
 
-  // ✅ Cierra sesión completamente
-  logout() {
-    this.userRole = null;
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('loggedIn');
+  getRole(): string | null {
+    return localStorage.getItem('role');
+  }
+
+  getEmail(): string | null {
+    return localStorage.getItem('email');
   }
 }
