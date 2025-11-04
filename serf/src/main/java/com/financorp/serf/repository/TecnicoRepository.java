@@ -39,8 +39,6 @@ import com.financorp.serf.model.Tecnico;
  * @see org.springframework.data.jpa.repository.JpaRepository
  * @see org.springframework.stereotype.Repository
  *
- * @version 1.0
- * @author Alexis 
  */
 @Repository
 public interface TecnicoRepository extends JpaRepository<Tecnico, Long> {

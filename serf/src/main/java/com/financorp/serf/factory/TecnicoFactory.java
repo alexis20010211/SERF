@@ -18,8 +18,6 @@ import com.financorp.serf.model.Tecnico;
  * Tecnico t2 = TecnicoFactory.crearTecnicoConNivelAutomatico("Ana López", "Soporte", 102L);
  * }</pre>
  *
- * @author Alesi
- * @version 1.0
  */
 public class TecnicoFactory {
 

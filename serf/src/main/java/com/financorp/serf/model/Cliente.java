@@ -20,8 +20,7 @@ import jakarta.persistence.Table;
  * Cliente cliente = new Cliente("María Gómez", "maria@correo.com", "987654321");
  * }</pre>
  *
- * @author Alesi
- * @version 1.1
+
  */
 @Entity
 @Table(name = "cliente") // asegura que se mapea con la tabla correcta

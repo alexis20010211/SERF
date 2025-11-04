@@ -36,8 +36,6 @@ import com.financorp.serf.model.Cliente;
  * @see com.financorp.serf.model.Cliente
  * @see org.springframework.data.jpa.repository.JpaRepository
  *
- * @author Alexis
- * @version 1.0
  */
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     // Aquí se pueden definir métodos personalizados, por ejemplo:

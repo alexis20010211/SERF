@@ -39,7 +39,7 @@ public class SolicitudTecnica extends Solicitud {
      */
     public SolicitudTecnica() {
         super();
-    }
+    } 
 
     /**
      * Constructor con parámetros que inicializa los atributos

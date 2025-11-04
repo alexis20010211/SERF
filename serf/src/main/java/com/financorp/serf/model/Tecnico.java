@@ -22,9 +22,6 @@ import jakarta.persistence.Id;
  * Tecnico tecnico = TecnicoFactory.crearTecnico("María López", "Redes", "Senior");
  * }</pre>
  *
- * @author Alesi
- * @version 1.0
- * @see com.financorp.serf.factory.TecnicoFactory
  */
 @Entity
 public class Tecnico {

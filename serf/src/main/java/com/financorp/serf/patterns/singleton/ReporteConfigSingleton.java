@@ -35,8 +35,6 @@ package com.financorp.serf.patterns.singleton;
  * del conjunto de Singletons centrales del sistema SERF.
  * </p>
  *
- * @author Alesi
- * @version 1.0
  */
 public class ReporteConfigSingleton {
 

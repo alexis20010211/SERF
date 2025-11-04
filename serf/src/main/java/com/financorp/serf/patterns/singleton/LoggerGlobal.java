@@ -33,8 +33,6 @@ import java.time.format.DateTimeFormatter;
  * para mantener coherencia y consistencia global en la aplicación.
  * </p>
  *
- * @author Alesi
- * @version 1.0
  */
 public class LoggerGlobal {
 

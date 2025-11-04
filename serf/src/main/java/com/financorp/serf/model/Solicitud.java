@@ -25,9 +25,6 @@ import jakarta.persistence.InheritanceType;
  * solicitud.procesar();
  * }</pre>
  *
- * @author Alesi
- * @version 1.0
- * @see com.financorp.serf.factory.SolicitudFactory
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

@@ -45,8 +45,6 @@ import com.financorp.serf.repository.ClienteRepository;
  * List<Cliente> lista = clienteService.obtenerTodos();
  * }</pre>
  *
- * @author Alesi
- * @version 1.0
  */
 @Service
 public class ClienteService {

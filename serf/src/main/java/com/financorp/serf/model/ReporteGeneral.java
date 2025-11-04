@@ -19,10 +19,6 @@ import com.financorp.serf.patterns.singleton.ConfiguracionGlobal;
  * System.out.println(reporte.generar());
  * }</pre>
  *
- * @author Alesi
- * @version 1.0
- * @see com.financorp.serf.model.Reporte
- * @see com.financorp.serf.patterns.singleton.ConfiguracionGlobal
  */
 public class ReporteGeneral implements Reporte {
 

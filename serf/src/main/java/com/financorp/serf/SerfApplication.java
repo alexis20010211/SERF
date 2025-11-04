@@ -51,8 +51,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *   <li>Service Layer → en la lógica de negocio central (clases en {@code service}).</li>
  * </ul>
  *
- * @author Alesi
- * @version 1.0
  */
 @SpringBootApplication
 public class SerfApplication {

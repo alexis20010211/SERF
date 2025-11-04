@@ -22,8 +22,6 @@ import com.financorp.serf.report.builder.ReporteFinancieroBuilder;
  * fachada.generarYGuardarReporteFinanciero();
  * }</pre>
  *
- * @author
- * @version 1.0
  */
 @Service
 public class ReportFacadeService {

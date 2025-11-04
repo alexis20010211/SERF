@@ -19,9 +19,7 @@ import jakarta.persistence.Table;
  * Role adminRole = new Role("Admin");
  * roleRepository.save(adminRole);
  * }</pre>
- *
- * @author Alesi
- * @version 1.0
+ 
  */
 @Entity
 @Table(name = "roles")

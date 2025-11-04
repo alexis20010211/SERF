@@ -54,8 +54,6 @@ import com.financorp.serf.repository.TecnicoRepository;
  * lista.forEach(t -> System.out.println(t.getNombre()));
  * }</pre>
  *
- * @author Alesi
- * @version 1.0
  */
 @Service
 public class TecnicoService {

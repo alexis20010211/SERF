@@ -19,10 +19,6 @@ import java.util.List;
  * System.out.println(reporte.generar());
  * }</pre>
  *
- * @author Alesi
- * @version 2.0
- * @see com.financorp.serf.model.Reporte
- * @see com.financorp.serf.patterns.singleton.ConfiguracionGlobal
  */
 public class ReporteVentas implements Reporte {
 

@@ -20,9 +20,6 @@ import com.financorp.serf.service.ProductoService;
  * Controlador REST para gestionar productos en el sistema SERF.
  * Permite listar, obtener, crear, actualizar y eliminar productos.
  *
- * Ruta base: /api/productos
- * Autor: Alesi
- * Versión: 1.2
  */
 @RestController
 @RequestMapping("/api/productos")

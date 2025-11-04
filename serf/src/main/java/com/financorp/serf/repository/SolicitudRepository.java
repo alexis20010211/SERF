@@ -39,8 +39,6 @@ import com.financorp.serf.model.Solicitud;
  * @see org.springframework.data.jpa.repository.JpaRepository
  * @see org.springframework.stereotype.Repository
  *
- * @version 1.0
- * @author Alexis
  */
 @Repository
 public interface SolicitudRepository extends JpaRepository<Solicitud, Long> {

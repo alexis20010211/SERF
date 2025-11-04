@@ -50,8 +50,6 @@ import com.financorp.serf.repository.SolicitudRepository;
  * solicitudes.forEach(Solicitud::procesar);
  * }</pre>
  *
- * @author Alesi
- * @version 1.0
  */
 @Service
 public class SolicitudService {

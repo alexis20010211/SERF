@@ -43,8 +43,6 @@ import com.financorp.serf.patterns.singleton.ConfiguracionGlobal;
  * asegurando consistencia global en toda la aplicación.
  * </p>
  *
- * @author Alesi
- * @version 1.0
  */
 public class TestSingleton {
 
