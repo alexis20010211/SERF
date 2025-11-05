@@ -3,35 +3,62 @@ package com.financorp.serf.report.builder;
 import com.financorp.serf.model.Reporte;
 import com.financorp.serf.model.ReporteFinanciero;
 
-public class ReporteFinancieroBuilder implements ReportBuilder {
+/**
+ * Builder específico para ReporteFinanciero.
+ * Permite armar paso a paso los datos del reporte.
+ */
+public class ReporteFinancieroBuilder {
 
-    private ReporteFinanciero reporte;
+    private final ReporteFinanciero reporte;
 
-    @Override
-    public void crearNuevoReporte() {
+    public ReporteFinancieroBuilder() {
         this.reporte = new ReporteFinanciero();
     }
 
-    @Override
-    public void construirEncabezado() {
-        reporte.setTitulo("Reporte Financiero Global 2025");
-        reporte.setPeriodo("Enero - Diciembre 2025");
-        reporte.setDepartamento("Finanzas Corporativas");
+    public ReporteFinancieroBuilder conTitulo(String titulo) {
+        reporte.setTitulo(titulo);
+        return this;
     }
 
-    @Override
-    public void construirCuerpo() {
-        reporte.setDatos("Ingresos, gastos, utilidades y flujo de caja consolidado.");
-        reporte.setGraficos("Gráficos de barras, líneas y comparativos trimestrales.");
+    public ReporteFinancieroBuilder conPeriodo(String periodo) {
+        reporte.setPeriodo(periodo);
+        return this;
     }
 
-    @Override
-    public void construirPie() {
-        reporte.setConclusiones("Crecimiento financiero del 12% respecto al año anterior.");
+    public ReporteFinancieroBuilder conDepartamento(String departamento) {
+        reporte.setDepartamento(departamento);
+        return this;
     }
 
-    @Override
-    public Reporte obtenerReporte() {
-        return this.reporte;
+    public ReporteFinancieroBuilder conDatos(String datos) {
+        reporte.setDatos(datos);
+        return this;
+    }
+
+    public ReporteFinancieroBuilder conGraficos(String graficos) {
+        reporte.setGraficos(graficos);
+        return this;
+    }
+
+    public ReporteFinancieroBuilder conConclusiones(String conclusiones) {
+        reporte.setConclusiones(conclusiones);
+        return this;
+    }
+
+    /**
+     * Construye el ReporteFinanciero final
+     * @return ReporteFinanciero listo para generar
+     */
+    public ReporteFinanciero build() {
+        return reporte;
+    }
+
+    /**
+     * Construye un ReporteFinanciero listo como Reporte genérico.
+     * Permite integrarlo con ReportBuilder si se quiere agregar encabezado o pie de página.
+     * @return Reporte
+     */
+    public Reporte buildComoReporte() {
+        return reporte;
     }
 }

@@ -1,8 +1,7 @@
 package com.financorp.serf.report.prototype;
 
 /**
- * Clase base para plantillas de reportes usando el patrón Prototype.
- * Permite clonar instancias de reportes para reutilización.
+ * Clase base para plantillas de reportes usando Prototype.
  */
 public class ReportTemplate implements Cloneable {
 

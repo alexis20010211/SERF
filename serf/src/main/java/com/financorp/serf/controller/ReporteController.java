@@ -1,58 +1,53 @@
 package com.financorp.serf.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.financorp.serf.model.ReporteEntity;
-import com.financorp.serf.service.ReporteService;
+import com.financorp.serf.report.facade.ReporteFacadeService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
-@RequestMapping("/api/reporte")
-// Permitir solicitudes desde Angular
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@RequestMapping("/api/reportes")
 public class ReporteController {
 
     @Autowired
-    private ReporteService reporteService;
+    private ReporteFacadeService reporteFacadeService;
 
-    // 🔹 GET públicos: cualquiera puede consultar
-    @GetMapping
-    public List<ReporteEntity> getAllReportes() {
-        return reporteService.getAllReportes();
-    }
+    @GetMapping("/generar")
+    @Operation(
+        summary = "Genera un reporte PDF",
+        description = "Genera un PDF con los datos de la tabla según el tipo solicitado",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "PDF generado correctamente"),
+            @ApiResponse(responseCode = "400", description = "Tipo de reporte no válido")
+        }
+    )
+    public ResponseEntity<byte[]> generarReporte(@RequestParam String tipo) {
+        byte[] pdf = reporteFacadeService.generarReportePDF(tipo);
 
-    @GetMapping("/{id}")
-    public ReporteEntity getReporteById(@PathVariable Long id) {
-        return reporteService.getReporteById(id);
-    }
+        if (pdf.length == 0) {
+            return ResponseEntity.badRequest()
+                    .body(("Tipo de reporte no válido: " + tipo).getBytes());
+        }
 
-    // 🔹 POST, PUT y DELETE protegidos: solo ADMIN
-    @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ReporteEntity createReporte(@RequestBody ReporteEntity reporte) {
-        return reporteService.saveReporte(reporte);
-    }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
 
-    @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ReporteEntity updateReporte(@PathVariable Long id, @RequestBody ReporteEntity reporte) {
-        return reporteService.updateReporte(id, reporte);
-    }
+        // Aquí forzamos la descarga
+        headers.setContentDisposition(ContentDisposition.builder("attachment")
+                .filename("reporte-" + tipo + ".pdf")
+                .build());
 
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void deleteReporte(@PathVariable Long id) {
-        reporteService.deleteReporte(id);
+        return new ResponseEntity<>(pdf, headers, HttpStatus.OK);
     }
 }

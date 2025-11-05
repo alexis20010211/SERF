@@ -3,7 +3,7 @@ package com.financorp.serf.model;
 import com.financorp.serf.patterns.singleton.ConfiguracionGlobal;
 
 /**
- * Interfaz base para la generación de reportes dentro del sistema SERF.
+ * Interfaz base para generación de reportes dentro del sistema SERF.
  * Define el contrato que deben cumplir todos los tipos de reportes,
  * como ReporteFinanciero, ReporteInventario, ReporteVentas y ReporteGeneral.
  *
